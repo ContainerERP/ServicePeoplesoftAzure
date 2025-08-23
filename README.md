@@ -27,7 +27,7 @@ but if you are looking for just pside.exe and psdmtx.exe then just these are goo
 ![Oracle](src/Clients/OracleClient)
 ├─ oci.dll
 ├─ oraociei19.dll
-└─ oraons.dll.
+├─ oraons.dll.
  
 2) SQL*Net config (so Database name gets resolved)
 ![Tns](src/Clients/OracleClient/Network/Admin/)
@@ -42,8 +42,8 @@ OracleClient/
    └─ psft/
      └─ Bin/
        └─ Client/
-          └─  win86 
-           ─ All Files in this folder ( Maybe do not need all but for demo I used all)
+          └─win86/
+                ├─ All Files in this folder ( Maybe do not need all but for demo I used all)
    
 4) Environment variables
    Point SQL*Net at your network admin folder and ensure the client DLLs are on PATH.
@@ -70,11 +70,10 @@ OracleClient/
    SQLNET.RECV_TIMEOUT             = 300
    SQLNET.SEND_TIMEOUT             = 300
 
-(values in seconds; adjust higher if your VPN is extremely slow)
-Check if the firewall is blocking the calls.
+   (values in seconds; adjust higher if your VPN is extremely slow)
+   Check if the firewall is blocking the calls.
 
 6) Dockerfile hints (Windows container) 
-
-![Docker](./Dockerfile)
+   ![Docker](./Dockerfile)
 
 
