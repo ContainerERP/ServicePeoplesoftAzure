@@ -36,16 +36,16 @@ OracleClient/
 └─ Network/
    └─ Admin/
       ├─ tnsnames.ora
-      └─ sqlnet.ora  
+      ├─ sqlnet.ora  
 3) Peoplesoft DLLs needed - I copied all the files in this folder Tools (8.61)
    ![Peoplesoft DLL's](src/Clients/psft_portable/)
    └─ psft/
      └─ Bin/
        └─ Client/
-         ├─ win86 /
-           ─ All Files ( Maybe do not need all but for demo I used all)
+          └─  win86 
+           ─ All Files in this folder ( Maybe do not need all but for demo I used all)
    
-5) Environment variables
+4) Environment variables
 
 Point SQL*Net at your network admin folder and ensure the client DLLs are on PATH.
 PowerShell (local or inside container entrypoint):
@@ -55,15 +55,13 @@ $env:PATH = "C:\OracleClient;$env:PATH"
 
 5) Sanity test -   
 If you get ORA-12154, check:
-
 TNS_ADMIN points to the folder containing tnsnames.ora
 Alias  is spelled exactly the same in tnsnames.ora and your connect string
 No BOM/encoding issues (save as ANSI/UTF-8 without BOM)
 No stray quotes or hidden characters in tnsnames.ora
 The client you’re using (x86 vs x64) matches the process you’re launching
 
-5) 
-Notes on Runtime Performance
+6) Notes on Runtime Performance:
 pside.exe is fully supported inside the container.
 On slow VPN connections, it may take several minutes (I tested up to 3 minutes) but it always completes successfully.
 This behavior depends on where the container is running on the network relative to the Oracle DB.
