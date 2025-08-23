@@ -46,30 +46,29 @@ OracleClient/
            ─ All Files in this folder ( Maybe do not need all but for demo I used all)
    
 4) Environment variables
-
-Point SQL*Net at your network admin folder and ensure the client DLLs are on PATH.
-PowerShell (local or inside container entrypoint):
-$env:TNS_ADMIN = "C:\OracleClient\Network\Admin"
-$env:PATH = "C:\OracleClient;$env:PATH"
+   Point SQL*Net at your network admin folder and ensure the client DLLs are on PATH.
+   PowerShell (local or inside container entrypoint):
+   $env:TNS_ADMIN = "C:\OracleClient\Network\Admin"
+   $env:PATH = "C:\OracleClient;$env:PATH"
 
 
 5) Sanity test -   
-If you get ORA-12154, check:
-TNS_ADMIN points to the folder containing tnsnames.ora
-Alias  is spelled exactly the same in tnsnames.ora and your connect string
-No BOM/encoding issues (save as ANSI/UTF-8 without BOM)
-No stray quotes or hidden characters in tnsnames.ora
-The client you’re using (x86 vs x64) matches the process you’re launching
+   If you get ORA-12154, check:
+   TNS_ADMIN points to the folder containing tnsnames.ora
+   Alias  is spelled exactly the same in tnsnames.ora and your connect string
+   No BOM/encoding issues (save as ANSI/UTF-8 without BOM)
+   No stray quotes or hidden characters in tnsnames.ora
+   The client you’re using (x86 vs x64) matches the process you’re launching
 
 6) Notes on Runtime Performance:
-pside.exe is fully supported inside the container.
-On slow VPN connections, it may take several minutes (I tested up to 3 minutes) but it always completes successfully.
-This behavior depends on where the container is running on the network relative to the Oracle DB.
-If you encounter slow response times, increase the timeout in your sqlnet.ora:
+   pside.exe is fully supported inside the container.
+   On slow VPN connections, it may take several minutes (I tested up to 3 minutes) but it always completes successfully.
+   This behavior depends on where the container is running on the network relative to the Oracle DB.
+   If you encounter slow response times, increase the timeout in your sqlnet.ora:
 
-SQLNET.OUTBOUND_CONNECT_TIMEOUT = 300
-SQLNET.RECV_TIMEOUT             = 300
-SQLNET.SEND_TIMEOUT             = 300
+   SQLNET.OUTBOUND_CONNECT_TIMEOUT = 300  
+   SQLNET.RECV_TIMEOUT             = 300
+   SQLNET.SEND_TIMEOUT             = 300
 
 (values in seconds; adjust higher if your VPN is extremely slow)
 Check if the firewall is blocking the calls.
