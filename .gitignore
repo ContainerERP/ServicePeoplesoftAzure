@@ -1,0 +1,22 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Secrets and overrides
+*.ps1.local
+*.env
+.env*
+
+# Outputs
+/output/
+export/
+preflight_*.json
+*.dmp
+*.dat
+
+# VSCode / IDE
+.vscode/
+.idea/
+*.code-workspace
