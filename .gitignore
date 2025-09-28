@@ -1,0 +1,10 @@
+# build/publish output
+**/bin/
+**/obj/
+**/publish/
+
+# licensed client dirs: ignore all except placeholder
+OracleClient/**
+!OracleClient/.gitkeep
+psft_portable/**
+!psft_portable/.gitkeep

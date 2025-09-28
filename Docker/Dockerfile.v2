@@ -1,0 +1,42 @@
+# escape=`
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-windowsservercore-ltsc2025
+USER ContainerAdministrator
+
+WORKDIR C:/app
+
+# ---- 1) copy raw build output (publish) ----
+COPY wrappers/peoplesoft-http/ServicePeoplesoftAzure-Wrapper/publish/wrapper-win64/ .\
+
+# ---- 2) copy tools/config you want inside the image ----
+COPY psft_portable/ C:/tools/psft_portable/
+COPY wrappers/peoplesoft-http/ServicePeoplesoftAzure-Wrapper/cfg C:/app/cfg/
+COPY OracleClient/ C:/OracleClient/
+# --- Extra Copy will be removed in later release
+COPY OracleClient/ C:/app/OracleClient/
+#COPY sqlnet.ora ./network/admin/sqlnet.ora
+#COPY appsettings.Container.json ./
+
+# If any of the subfolders have seed files, you can copy them too:
+
+RUN mkdir mkdir C:\app\data\export   
+
+# COPY data\export\  C:\app\data\export\
+# COPY data\reports\ C:\app\data\reports\
+# COPY data\temp\    C:\app\data\temp\
+# ---- 3) environment to select the right settings file ----
+ENV DOTNET_ENVIRONMENT=Container
+ENV TNS_ADMIN=C:/app/OracleClient/network/admin
+# ---- 4) PATH/TNS/oracle tweaks if you need them ----
+ENV PATH="C:/app;C:/app/OracleClient;C:/tools/psft_portable;C:\Windows\System32\WindowsPowerShell\v1.0;%PATH%"
+ENV ORACLE_HOME=C:/app/OracleClient
+
+# ---- 5) ASP.NET hosting URL ----
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+EXPOSE 8080
+ENTRYPOINT ["PsftRestWrapper.exe"]
+
+
+ 
+
+
+ 

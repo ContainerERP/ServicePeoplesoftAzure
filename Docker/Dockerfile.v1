@@ -1,0 +1,38 @@
+
+# Base image
+FROM mcr.microsoft.com/windows/server:ltsc2025
+
+# Use PowerShell for convenience during build
+SHELL ["powershell","-NoLogo","-NoProfile","-Command"]
+
+# --- Oracle client & config ---
+# Copy your Instant Client folder (must contain oci.dll, sqlplus.exe if you have it, etc.)
+COPY OracleClient/ C:/OracleClient/
+COPY psft_portable/ C:/psft_portable/
+COPY sqlnet.ora ./network/admin/sqlnet.ora
+# Put sqlnet.ora where TNS_ADMIN will point
+# (Docker will create intermediate dirs)
+# COPY sqlnet.ora C:\OracleClient\network\admin\sqlnet.ora
+# --- Tools / scripts ---
+RUN New-Item -ItemType Directory -Path C:\tools | Out-Null
+COPY Test-OracleConnectivity.ps1 C:/tools/Test-OracleConnectivity.ps1
+# If you plan to use a portable PeopleSoft folder, uncomment these:
+# RUN New-Item -ItemType Directory -Path C:/psft_portable | Out-Null
+# COPY psft_portable\ C:\psft_portable\
+
+# --- Environment ---
+# Backslashes + include existing PATH. Put 32-bit client dir first if using App Designer later.
+ENV TNS_ADMIN=C:/OracleClient/network/admin
+ENV PATH="C:/OracleClient;C:/psft_portable;C:\Windows\System32\WindowsPowerShell\v1.0%PATH%"
+ENV ORACLE_HOME=C:/OracleClient
+
+# (Optional) Working dir
+WORKDIR C:/tools
+
+# Sanity message during build
+# RUN Write-Host 'PowerShell available; script copied; PATH and TNS_ADMIN set.'
+
+# Default entry point (you can override on `docker run`)
+#ENTRYPOINT ["powershell.exe","-NoLogo","-ExecutionPolicy","Bypass"]
+#RUN echo "PowerShell script copied; PATH and TNS_ADMIN set."
+
