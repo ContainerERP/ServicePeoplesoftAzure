@@ -1,0 +1,132 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "PsftRestWrapper",
+    "version": "1.0"
+  },
+  "paths": {
+    "/diag/stepchecks": {
+      "get": {
+        "tags": [
+          "PsftRestWrapper"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/migrate/step/{step}": {
+      "post": {
+        "tags": [
+          "PsftRestWrapper"
+        ],
+        "parameters": [
+          {
+            "name": "step",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMigrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/migrate": {
+      "post": {
+        "tags": [
+          "PsftRestWrapper"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMigrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProjectMigrationRequest": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string",
+            "nullable": true
+          },
+          "sourceDb": {
+            "type": "string",
+            "nullable": true
+          },
+          "sourceUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "sourcePwd": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetDb": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetPwd": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectPwd": {
+            "type": "string",
+            "nullable": true
+          },
+          "dbUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "dbPwd": {
+            "type": "string",
+            "nullable": true
+          },
+          "exportForUndo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\bin\Debug\net9.0\Wrapper.Core.deps.json
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\bin\Debug\net9.0\Wrapper.Core.dll
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\bin\Debug\net9.0\Wrapper.Core.pdb
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.csproj.AssemblyReference.cache
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.AssemblyInfoInputs.cache
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.AssemblyInfo.cs
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.csproj.CoreCompileInputs.cache
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.sourcelink.json
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.dll
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\refint\Wrapper.Core.dll
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\Wrapper.Core.pdb
+C:\Monorepo\ServicePeoplesoftAzure\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Core\obj\Debug\net9.0\ref\Wrapper.Core.dll
