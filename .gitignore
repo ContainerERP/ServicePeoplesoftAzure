@@ -1,8 +1,12 @@
 # build/publish output
+ # Ignore build output everywhere
 **/bin/
 **/obj/
-**/publish/
 
+# Keep only published win-x64 outputs (un-ignore these specific folders)
+!wrappers/peoplesoft-http/src/Wrapper.Api/bin/Release/net9.0/win-x64/**
+!wrappers/peoplesoft-http/src/Wrapper.Core/bin/Release/net9.0/win-x64/**
+# Ignore build output  
 # licensed client dirs: ignore all except placeholder
 OracleClient/**
 !OracleClient/.gitkeep
