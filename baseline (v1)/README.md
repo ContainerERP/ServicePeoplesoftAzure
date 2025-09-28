@@ -11,14 +11,13 @@ This project wraps Oracle client DLLs and PeopleSoft executables into a repeatab
   
 ---
 ## 🖼 Architecture & Flow 
-### Overall Flow
-![Overall Flow](screenshots/OverallFlow.png)
-
+### Overall Flow 
+[Overall Flow (image)](./screenshots/OverallFlow.png) 
 ### Preflight Logic
-![Preflight Logic](screenshots/PreFlightLogic.png)
-
+[Preflight Logic (image)](./screenshots/PreflightLogic.png) 
 ### Networking Flow
-![Networking Flow](screenshots/NetworkingFlow.png)
+[Networking Flow (image)](./screenshots/NetworkingFlow.png)
+
 ---
 1) Minimal Oracle client files (x86 for PeopleSoft tools)
 If you need SQLPLUS working then you might need more files from here.https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html
