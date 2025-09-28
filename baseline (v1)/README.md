@@ -8,17 +8,17 @@ This project wraps Oracle client DLLs and PeopleSoft executables into a repeatab
 
 ## 🔑 Key Features
 - ✅ **Preflight checks** before running migrations ![Script](src/Scripts/Preflight-PeopleSoft.ps1) -  
-      Example of the output   ![Script](screenshots/PreFlightLogic_Output.png) -
+  
 ---
 ## 🖼 Architecture & Flow 
 ### Overall Flow
-![Overall Flow](../../screenshots/OverallFlow.png)
+![Overall Flow](screenshots/OverallFlow.png)
 
 ### Preflight Logic
-![Preflight Logic](../../screenshots/PreFlightLogic.png)
+![Preflight Logic](screenshots/PreFlightLogic.png)
 
 ### Networking Flow
-![Networking Flow](../../screenshots/NetworkingFlow.png)
+![Networking Flow](screenshots/NetworkingFlow.png)
 ---
 1) Minimal Oracle client files (x86 for PeopleSoft tools)
 If you need SQLPLUS working then you might need more files from here.https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html
