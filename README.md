@@ -2,7 +2,6 @@
 
 Migrate & build PeopleSoft projects via simple HTTP steps:  
 **EmptyContainer → Compare → CopyProject → Build**  
-(_Future_: **EmptyContainer** Undo a migration)
 
 This repo runs **two Dockerized versions** side-by-side:
 - **v1** (older Dockerfile) – shell-script only, baseline container test. [Baseline (v1) README](./baseline%20(v1)/README.md)
