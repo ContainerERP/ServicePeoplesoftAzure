@@ -20,7 +20,7 @@ This repo runs **two Dockerized versions** side-by-side:
   - `oraons.dll`
   - `sqlplus.exe`
 
- **PeopleSoft Client tools**  
+- **PeopleSoft Client tools**  
   Location: `C:\psft_client\bin\client\winx86\`  
   Must include at minimum:
   - `pside.exe`
