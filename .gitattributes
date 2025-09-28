@@ -1,0 +1,4 @@
+# line endings and binaries
+* text=auto
+*.xlsx binary
+*.docx binary

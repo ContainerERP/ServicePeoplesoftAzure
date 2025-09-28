@@ -20,3 +20,18 @@ preflight_*.json
 .vscode/
 .idea/
 *.code-workspace
+# generic
+bin/
+obj/
+.vs/
+*.user
+*.log
+
+# wrapper-specific
+wrappers/peoplesoft-http/**/.config/
+wrappers/peoplesoft-http/**/data/
+wrappers/peoplesoft-http/**/test.sql
+
+# publish: ignore all EXCEPT wrapper-win64
+wrappers/peoplesoft-http/**/publish/
+!wrappers/peoplesoft-http/**/publish/wrapper-win64/**

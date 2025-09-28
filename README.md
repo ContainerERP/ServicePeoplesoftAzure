@@ -1,79 +1,96 @@
-# 🚀 ERP Migration in a Container
+# ServicePeoplesoftAzure + HTTP Wrapper
 
-A proof-of-concept showing how to run **PeopleSoft migration tools inside a container**.  
-This project wraps Oracle client DLLs and PeopleSoft executables into a repeatable, testable workflow.
+Migrate & build PeopleSoft projects via simple HTTP steps:  
+**EmptyContainer → Compare → CopyProject → Build**  
+(_Future_: **EmptyContainer** Undo a migration)
+
+This repo runs **two Dockerized versions** side-by-side:
+- **v1** (older Dockerfile) – shell-script only, baseline container test. (../README.md)
+- **v2** (current, recommended) – API-driven, Swagger-exposed.
+---
+
+## ⚙️ Prerequisites
+
+- Windows 11/Server with **Docker Desktop** (Windows containers).
+- **Oracle Client** installed locally at:  
+  `C:\Program Files\Oracle Client for Microsoft Tools\`  
+  Must include  
+  - `oci.dll`
+  - `oraociei19.dll`
+  - `oraons.dll`
+  - `sqlplus.exe`
+
+ **PeopleSoft Client tools**  
+  Location: `C:\psft_client\bin\client\winx86\`  
+  Must include at minimum:
+  - `pside.exe`
+  - `psdmt.exe`
+
+  > 💡 To keep container size small, you may also include the Oracle client DLLs here so they travel with the PeopleSoft client folder:
+  > - `oci.dll`
+  > - `oraociei19.dll`
+  > - `oraons.dll`
+
+> ⚠️ We **do not commit vendor binaries**. You must bind-mount your licensed installs at runtime.
+
+## 🚀 Quickstart (5 min)
+
+### 1) Publish the API once (self-contained)
+
+```powershell
+dotnet publish .\wrappers\peoplesoft-http\ServicePeoplesoftAzure-Wrapper\src\Wrapper.Api\Wrapper.Api.csproj `
+  -c Release -r win-x64 --self-contained true -o .\.out
+
+docker build -f docker/Dockerfile.v2 -t containererp/peoplesoft-wrapper:v0.2.0 --build-arg PUBLISH_DIR=.out .
+docker run --rm -p 5000:8080 containererp/peoplesoft-wrapper:v0.2.0
+
+Swagger UI → http://localhost:5000/swagger/index.html
+http://localhost:5000/api/migrate/step/Compare
+http://localhost:5000/api/migrate/step/Migrate
+http://localhost:5000/api/migrate/step/Build
+http://localhost:5000/api/migrate/step/EmptyContainer (works but for future release)
+ {
+  "project": "ISA_TEST2A",
+  "sourceServer": "",
+  "sourceDb": "DEVL",
+  "sourceUser": "PeoplesoftSourceUser",
+  "sourcePwd": "PeoplesoftSourcePassword",
+  "targetServer": "",
+  "targetDb": "FSTST",
+  "targetUser": "PeoplesoftTargetUser",,
+  "targetPwd": "PeoplesoftTargetpassword", 
+  "connectId": "people",
+  "connectPwd": "AskDbasbutnoneedofencrypting",
+  "workDir": "C:\\temp\\export",
+  "dbUser":   "OracleUserID",
+  "dbPwd":    "OraclePassword" ,  
+  "exportForUndo": false 
+}
+
+
+
+
+Firewall: check DB connectivity if timeouts persist. 
+ExportForUndo: planned feature to rollback migration by saving EmptyContainer outputs.
+
+## ⚙️ Configuration Notes
+
+- **pside-args.json**  
+  Required to pass PeopleSoft Application Designer arguments.  
+  Sample parameters and explanations:  
+  [Oracle Docs – Application Designer CLI](https://docs.oracle.com/cd/F44947_01/pt858pbr3/eng/pt/tlcm/concept_UnderstandingPeopleSoftApplicationDesignerCommandLineParameters-07741f.html?pli=ul_d102e86_tlcm)
+
+- **ptbld.cfg**  
+  Required for `-PJB` (Project Build).  
+  A sample file is available at `<PS_HOME>\setup\ptbld.cfg`.
+
+- **appsettings.Container.json**  
+  We use the **SQL-based probe approach** (querying DB tables for success/failure) instead of the process exit code approach.  
+  - Reason: this repo was developed over a slow VPN; SQL checks were more reliable.  
+  - On Azure, you can switch to process-based checks if preferred.  
+  - SQL probes always returned consistent results in our testing.
+
+- **Compare Reports**  
+  Compare report files are generated and can be viewed outside the API. Not wired into the REST response yet, but easily extended if needed.
+
  
----
-
-## 🔑 Key Features
-- ✅ **Preflight checks** before running migrations ![Script](src/Scripts/Preflight-PeopleSoft.ps1) -  
-      Example of the output   ![Script](screenshots/PreFlightLogic_Output.png) -
----
-## 🖼 Architecture & Flow
-
-### Overall Flow
-![Overall Flow](screenshots/OverallFlow.png)
-
-### Preflight Logic
-![Preflight Logic](screenshots/PreFlightLogic.png)
-
-### Networking Flow
-![Networking Flow](screenshots/NetworkingFlow.png)
-
----
-1) Minimal Oracle client files (x86 for PeopleSoft tools)
-If you need SQLPLUS working then you might need more files from here.https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html
-but if you are looking for just pside.exe and psdmtx.exe then just these are good.
-![Oracle](src/Clients/OracleClient)
-├─ oci.dll
-├─ oraociei19.dll
-├─ oraons.dll.
- 
-2) SQL*Net config (so Database name gets resolved)
-![Tns](src/Clients/OracleClient/Network/Admin/)
-Create the network admin folder and drop your tnsnames.ora and sqlnet.ora:
-OracleClient/
-└─ Network/
-   └─ Admin/
-      ├─ tnsnames.ora
-      ├─ sqlnet.ora  
-3) Peoplesoft DLLs needed - I copied all the files in this folder Tools (8.61)
-   ![Peoplesoft DLL's](src/Clients/psft_portable/)
-   └─ psft/
-     └─ Bin/
-       └─ Client/
-          └─win86/
-                ├─ All Files in this folder ( Maybe do not need all but for demo I used all)
-   
-4) Environment variables
-   Point SQL*Net at your network admin folder and ensure the client DLLs are on PATH.
-   PowerShell (local or inside container entrypoint):
-   $env:TNS_ADMIN = "C:\OracleClient\Network\Admin"
-   $env:PATH = "C:\OracleClient;$env:PATH"
-
-
-5) Sanity test -   
-   If you get ORA-12154, check:
-   TNS_ADMIN points to the folder containing tnsnames.ora
-   Alias  is spelled exactly the same in tnsnames.ora and your connect string
-   No BOM/encoding issues (save as ANSI/UTF-8 without BOM)
-   No stray quotes or hidden characters in tnsnames.ora
-   The client you’re using (x86 vs x64) matches the process you’re launching
-
-6) Notes on Runtime Performance:
-   pside.exe is fully supported inside the container.
-   On slow VPN connections, it may take several minutes (I tested up to 3 minutes) but it always completes successfully.
-   This behavior depends on where the container is running on the network relative to the Oracle DB.
-   If you encounter slow response times, increase the timeout in your sqlnet.ora:
-
-   SQLNET.OUTBOUND_CONNECT_TIMEOUT = 300  
-   SQLNET.RECV_TIMEOUT             = 300
-   SQLNET.SEND_TIMEOUT             = 300
-
-   (values in seconds; adjust higher if your VPN is extremely slow)
-   Check if the firewall is blocking the calls.
-
-6) Dockerfile hints (Windows container) 
-   ![Docker](./Dockerfile)
-
-
