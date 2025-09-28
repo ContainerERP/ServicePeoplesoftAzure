@@ -2,7 +2,8 @@
  # Ignore build output everywhere
 **/bin/
 **/obj/
-
+wrappers/peoplesoft-http/src/Wrapper.Api/data/**
+*.log
 # Keep only published win-x64 outputs (un-ignore these specific folders)
 !wrappers/peoplesoft-http/src/Wrapper.Api/bin/Release/net9.0/win-x64/**
 !wrappers/peoplesoft-http/src/Wrapper.Core/bin/Release/net9.0/win-x64/**
