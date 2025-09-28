@@ -8,3 +8,4 @@ OracleClient/**
 !OracleClient/.gitkeep
 psft_portable/**
 !psft_portable/.gitkeep
+wrappers/peoplesoft-http/src/Wrapper.Api/data/
