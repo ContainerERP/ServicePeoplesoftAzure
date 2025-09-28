@@ -25,7 +25,6 @@ This repo runs **two Dockerized versions** side-by-side:
   Must include at minimum:
   - `pside.exe`
   - `psdmt.exe`
-
   > 💡 To keep container size small, you may also include the Oracle client DLLs here so they travel with the PeopleSoft client folder:
   > - `oci.dll`
   > - `oraociei19.dll`
