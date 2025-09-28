@@ -1,37 +1,5 @@
-# OS / editor noise
-.DS_Store
-Thumbs.db
-*.log
-*.tmp
 
-# Secrets and overrides
-*.ps1.local
-*.env
-.env*
-
-# Outputs
-/output/
-export/
-preflight_*.json
-*.dmp
-*.dat
-
-# VSCode / IDE
-.vscode/
-.idea/
-*.code-workspace
-# generic
-bin/
-obj/
-.vs/
-*.user
-*.log
-
-# wrapper-specific
-wrappers/peoplesoft-http/**/.config/
-wrappers/peoplesoft-http/**/data/
-wrappers/peoplesoft-http/**/test.sql
-
-# publish: ignore all EXCEPT wrapper-win64
-wrappers/peoplesoft-http/**/publish/
-!wrappers/peoplesoft-http/**/publish/wrapper-win64/**
+# build/publish output
+**/bin/
+**/obj/
+**/publish/

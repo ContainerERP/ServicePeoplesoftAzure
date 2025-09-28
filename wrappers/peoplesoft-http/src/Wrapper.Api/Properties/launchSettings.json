@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "PsftRestWrapper": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ORACLE_CLIENT_DIR": "C:\\DockerBuild2\\OracleClient"
+      },
+      "applicationUrl": "https://localhost:60072;http://localhost:60073"
+    }
+  }
+}
+
+ 
