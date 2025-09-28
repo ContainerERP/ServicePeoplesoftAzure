@@ -1,4 +1,4 @@
-﻿Baseline v1 notes go here.
+
 # 🚀 ERP Migration in a Container
 
 A proof-of-concept showing how to run **PeopleSoft migration tools inside a container**.  
